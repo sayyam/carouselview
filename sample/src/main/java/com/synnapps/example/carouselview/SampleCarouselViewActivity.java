@@ -22,14 +22,12 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
 
     Button pauseButton;
 
-    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
-    String[] sampleTitles = {"Orange", "Grapes", "Strawberry", "Cherry", "Apricot"};
+    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3};
+    String[] sampleTitles = {"Orange", "Grapes", "Strawberry"};
     String[] sampleNetworkImageURLs = {
             "https://placeholdit.imgix.net/~text?txtsize=15&txt=image1&txt=350%C3%97150&w=350&h=150",
             "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&txt=350%C3%97150&w=350&h=150",
-            "https://placeholdit.imgix.net/~text?txtsize=15&txt=image3&txt=350%C3%97150&w=350&h=150",
-            "https://placeholdit.imgix.net/~text?txtsize=15&txt=image4&txt=350%C3%97150&w=350&h=150",
-            "https://placeholdit.imgix.net/~text?txtsize=15&txt=image5&txt=350%C3%97150&w=350&h=150"
+            "https://placeholdit.imgix.net/~text?txtsize=15&txt=image3&txt=350%C3%97150&w=350&h=150"
     };
 
     @Override
@@ -43,7 +41,13 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
         customCarouselLabel = (TextView) findViewById(R.id.customCarouselLabel);
         pauseButton = (Button) findViewById(R.id.pauseButton);
 
-        pauseButton.setOnClickListener(pauseOnClickListener);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            carouselView.pauseCarousel();
+            customCarouselView.reSetSlideInterval(0);
+          }
+        });
 
         carouselView.setPageCount(sampleImages.length);
         carouselView.setSlideInterval(4000);
@@ -60,7 +64,14 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
 
-            Picasso.with(getApplicationContext()).load(sampleNetworkImageURLs[position]).placeholder(sampleImages[0]).error(sampleImages[3]).fit().centerCrop().into(imageView);
+            Picasso
+                .with(getApplicationContext())
+                .load(sampleNetworkImageURLs[position])
+                .placeholder(sampleImages[0])
+                .error(sampleImages[0])
+                .resize(400, 200)
+                .centerCrop()
+                .into(imageView);
 
             //imageView.setImageResource(sampleImages[position]);
         }
@@ -82,13 +93,4 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             return customView;
         }
     };
-
-    View.OnClickListener pauseOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            carouselView.pauseCarousel();
-            customCarouselView.reSetSlideInterval(0);
-        }
-    };
-
 }
