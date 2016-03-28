@@ -74,10 +74,8 @@ public class CarouselView extends FrameLayout {
               @Override
               public void onPageScrollStateChanged(int state) {
                 // User initiated scroll
-                if ((previousState == ViewPager.SCROLL_STATE_DRAGGING
-                    && state == ViewPager.SCROLL_STATE_SETTLING) ||
-                    (previousState == ViewPager.SCROLL_STATE_SETTLING
-                        && state == ViewPager.SCROLL_STATE_IDLE)) {
+                if (previousState == ViewPager.SCROLL_STATE_DRAGGING
+                    && state == ViewPager.SCROLL_STATE_SETTLING) {
 
                   if (!disableAutoPlayOnUserInteraction) {
                     playCarousel();
