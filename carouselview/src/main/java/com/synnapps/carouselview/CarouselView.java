@@ -65,14 +65,27 @@ public class CarouselView extends FrameLayout {
     }
 
     private void initView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        if (isInEditMode()) {
-            return;
-        } else {
+        if (!isInEditMode()) {
             View view = LayoutInflater.from(context).inflate(R.layout.view_carousel, this, true);
             containerViewPager = (ViewPager) view.findViewById(R.id.containerViewPager);
             mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
 
-            containerViewPager.addOnPageChangeListener(carouselOnPageChangeListener);
+            containerViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+              @Override
+              public void onPageScrollStateChanged(int state) {
+                // User initiated scroll
+                if ((previousState == ViewPager.SCROLL_STATE_DRAGGING
+                    && state == ViewPager.SCROLL_STATE_SETTLING) ||
+                    (previousState == ViewPager.SCROLL_STATE_SETTLING
+                        && state == ViewPager.SCROLL_STATE_IDLE)) {
+
+                  if (!disableAutoPlayOnUserInteraction) {
+                    playCarousel();
+                  }
+                }
+                previousState = state;
+              }
+            });
 
             //Retrieve styles attributes
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarouselView, defStyleAttr, 0);
@@ -163,7 +176,6 @@ public class CarouselView extends FrameLayout {
     }
 
     private void stopScrollTimer() {
-
         if (null != swipeTimer) {
             swipeTimer.cancel();
         }
@@ -173,24 +185,21 @@ public class CarouselView extends FrameLayout {
         }
     }
 
-
     private void resetScrollTimer() {
-
         stopScrollTimer();
 
         swipeTask = new SwipeTask();
         swipeTimer = new Timer();
-
     }
 
     /**
      * Starts auto scrolling if
      */
     public void playCarousel() {
-
         resetScrollTimer();
 
-        if (autoPlay && slideInterval > 0 && containerViewPager.getAdapter() != null && containerViewPager.getAdapter().getCount() > 1) {
+        if (autoPlay && slideInterval > 0 &&
+            containerViewPager.getAdapter() != null && containerViewPager.getAdapter().getCount() > 1) {
 
             swipeTimer.schedule(swipeTask, slideInterval, slideInterval);
         }
@@ -212,7 +221,6 @@ public class CarouselView extends FrameLayout {
         this.autoPlay = false;
     }
 
-
     private class CarouselPagerAdapter extends PagerAdapter {
         private Context mContext;
 
@@ -221,8 +229,7 @@ public class CarouselView extends FrameLayout {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-
+        public Object instantiateItem(ViewGroup viewGroup, int position) {
             Object objectToReturn;
 
             //Either let user set image to ImageView
@@ -235,7 +242,7 @@ public class CarouselView extends FrameLayout {
                 objectToReturn = imageView;
                 mImageListener.setImageForPosition(position, imageView);
 
-                collection.addView(imageView);
+                viewGroup.addView(imageView);
 
                 //Or let user add his own ViewGroup
             } else if (mViewListener != null) {
@@ -244,7 +251,7 @@ public class CarouselView extends FrameLayout {
 
                 if (null != view) {
                     objectToReturn = view;
-                    collection.addView(view);
+                    viewGroup.addView(view);
                 } else {
                     throw new RuntimeException("View can not be null for position " + position);
                 }
@@ -271,42 +278,6 @@ public class CarouselView extends FrameLayout {
             return getPageCount();
         }
     }
-
-    ViewPager.OnPageChangeListener carouselOnPageChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            //Programmatic scroll
-
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-            //User initiated scroll
-
-            if (previousState == ViewPager.SCROLL_STATE_DRAGGING
-                    && state == ViewPager.SCROLL_STATE_SETTLING) {
-
-                if (disableAutoPlayOnUserInteraction) {
-                    pauseCarousel();
-                } else {
-                    playCarousel();
-                }
-
-            } else if (previousState == ViewPager.SCROLL_STATE_SETTLING
-                    && state == ViewPager.SCROLL_STATE_IDLE) {
-            }
-
-            previousState = state;
-
-        }
-    };
 
     private class SwipeTask extends TimerTask {
         public void run() {
