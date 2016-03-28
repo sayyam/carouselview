@@ -81,6 +81,8 @@ public class CarouselView extends FrameLayout {
 
                   if (!disableAutoPlayOnUserInteraction) {
                     playCarousel();
+                  } else {
+                    pauseCarousel();
                   }
                 }
                 previousState = state;
