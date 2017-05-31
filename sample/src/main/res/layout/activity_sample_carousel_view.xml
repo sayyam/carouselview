@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".SampleCarouselViewActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SampleCarouselViewActivity">
 
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carouselView"
@@ -21,11 +21,11 @@
         app:radius="6dp"
         app:slideInterval="3000"
         app:strokeColor="#FF777777"
-        app:strokeWidth="1dp"/>
+        app:strokeWidth="1dp" />
 
     <TextView
         android:id="@+id/carouselLabel"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/carouselView"
         android:layout_centerHorizontal="true"
@@ -34,7 +34,7 @@
         android:gravity="center_horizontal"
         android:text="Yummy Fruits"
         android:textColor="@android:color/black"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/customCarouselView"
@@ -43,15 +43,16 @@
         android:layout_below="@+id/carouselLabel"
         android:layout_marginTop="20dp"
         app:disableAutoPlayOnUserInteraction="true"
+        app:autoPlay="false"
         app:fillColor="#FFFFFFFF"
         app:pageColor="#00000000"
         app:radius="6dp"
         app:strokeColor="#FF777777"
-        app:strokeWidth="1dp"/>
+        app:strokeWidth="1dp" />
 
     <TextView
         android:id="@+id/customCarouselLabel"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/customCarouselView"
         android:layout_centerHorizontal="true"
@@ -60,7 +61,7 @@
         android:gravity="center_horizontal"
         android:text="Custom Views"
         android:textColor="@android:color/black"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/pauseButton"
@@ -74,6 +75,6 @@
         android:text="Pause"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
 </RelativeLayout>
