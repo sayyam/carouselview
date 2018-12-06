@@ -14,7 +14,7 @@ Download
 --------
 ### Gradle:
 ```groovy
-compile 'com.synnapps:carouselview:0.1.5'
+implementation 'com.synnapps:carouselview:0.1.5'
 ```
 ### Maven:
 ```xml
