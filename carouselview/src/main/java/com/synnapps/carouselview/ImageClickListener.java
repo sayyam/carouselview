@@ -6,4 +6,6 @@ package com.synnapps.carouselview;
 
 public interface ImageClickListener {
     void onClick(int position);
+
+    void onLongClick(int position);
 }
