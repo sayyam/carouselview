@@ -60,6 +60,12 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             public void onClick(int position) {
                 Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onLongClick(int position) {
+                Toast.makeText(SampleCarouselViewActivity.this, "Long clicked item: "+ position, Toast.LENGTH_SHORT).show();
+            }
+
         });
 
     }

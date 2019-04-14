@@ -36,6 +36,7 @@ Usage
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+		android:longClickable="true"
         app:fillColor="#FFFFFFFF"
         app:pageColor="#00000000"
         app:radius="6dp"
@@ -111,6 +112,11 @@ customCarouselView.setImageClickListener(new ImageClickListener() {
             @Override
             public void onClick(int position) {
                 Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
+            }
+			
+			@Override
+            public void onLongClick(int position) {
+                Toast.makeText(SampleCarouselViewActivity.this, "Long clicked item: "+ position, Toast.LENGTH_SHORT).show();
             }
         });
 ```
