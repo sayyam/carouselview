@@ -1,6 +1,7 @@
 package com.synnapps.carouselview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -47,6 +48,7 @@ public class CarouselViewPager extends ViewPager {
             mScroller = new CarouselViewPagerScroller(getContext(),
                     (Interpolator) interpolator.get(null));
             scroller.set(this, mScroller);
+            this.setBackgroundColor(Color.TRANSPARENT);
         } catch (Exception e) {
         }
     }
