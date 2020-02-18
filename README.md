@@ -11,12 +11,23 @@ A simple yet flexible library to add carousel view in your android application.
 
 
 Download
+
+Downloading and configuring the Carousel View Does Not Vary whether you are using kotlin or Java as
+your primary programming language
 --------
-### Gradle:
+### Gradle: Configure CarouselView for Gradle
+
+add below dependency in the app-level build.gradle file
 ```groovy
 compile 'com.synnapps:carouselview:0.1.5'
 ```
-### Maven:
+if your gradle plugin complains with a warning like
+Configuration 'compile' is obsolete and has been replaced with 'implementation', replace the compile
+ word with implementations as indicated below
+ ```groovy
+ implementation 'com.synnapps:carouselview:0.1.5'
+ ```
+### Maven: Configure CarouselView for Maven
 ```xml
 <dependency>
   <groupId>com.synnapps</groupId>
@@ -28,6 +39,9 @@ compile 'com.synnapps:carouselview:0.1.5'
 
 Usage
 --------
+
+Whether you are using Java Or kotlin as your primary language, the layout implementation does not
+change
 
 ### Include following code in your layout:
 
@@ -44,6 +58,9 @@ Usage
         app:strokeWidth="1dp"/>
 ```
 ### Include following code in your activity:
+
+###Java
+
 ```java
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
@@ -70,6 +87,26 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     };
 
 }
+```
+###Kotlin
+```kotlin
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var carouselView: CarouselView
+    private var sampleImages = intArrayOf(R.drawable.image_1, R.drawable.image_2, R.drawable
+    .image_3, R.drawable.image_4, R.drawable.image_5)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        carouselView = (CarouselView) findViewById(R.id.carouselView)
+        carouselView.setPageCount(sampleImages.length)
+
+        carouselView.setImageListener(imageListener)
+}
+    }
 ```
 
 ### If you want to add custom view, implement ```ViewListener```.
