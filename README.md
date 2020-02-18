@@ -51,7 +51,7 @@ The layout is same regardless of whether you are using Java Or kotlin
 
 ### Include following code in your activity:
 
-####Java Implementation
+**Java**
 ```java
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
@@ -79,8 +79,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
 
 }
 ```
-
-####Kotlin Implementation
+**Kotlin **
 ```kotlin
 class MainActivity : AppCompatActivity() {
 
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
 ### If you want to add custom view, implement ```ViewListener```.
 
-####Java Implementation
+**Java **
 ```java
 
 public class SampleCarouselViewActivity extends AppCompatActivity {
@@ -136,8 +135,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     };
 }
 ```
-
-####Kotlin Implementation
+**Kotlin **
 ```kotlin
 
 class SampleCarouselViewActivity : AppCompatActivity() {
@@ -166,7 +164,7 @@ class SampleCarouselViewActivity : AppCompatActivity() {
 
 ### If you'd like to receive touch events for each image
 
-####Java Implementation
+**Java **
 ```java
 customCarouselView.setImageClickListener(new ImageClickListener() {
             @Override
@@ -175,8 +173,7 @@ customCarouselView.setImageClickListener(new ImageClickListener() {
             }
         });
 ```
-
-####Kotlin Implementation
+**Kotlin **
 ```kotlin
 customCarouselView.setImageClickListener(object : ImageClickListener() {
             fun onClick(position: Int) {
