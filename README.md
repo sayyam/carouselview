@@ -11,23 +11,15 @@ A simple yet flexible library to add carousel view in your android application.
 
 
 Download
-
-Downloading and configuring the Carousel View Does Not Vary whether you are using kotlin or Java as
-your primary programming language
 --------
-### Gradle: Configure CarouselView for Gradle
+Downloading and configuring the CarouselView does not vary whether you are using kotlin or Java as
+your primary programming language
 
-add below dependency in the app-level build.gradle file
+### Gradle:
 ```groovy
 compile 'com.synnapps:carouselview:0.1.5'
 ```
-if your gradle plugin complains with a warning like
-Configuration 'compile' is obsolete and has been replaced with 'implementation', replace the compile
- word with implementations as indicated below
- ```groovy
- implementation 'com.synnapps:carouselview:0.1.5'
- ```
-### Maven: Configure CarouselView for Maven
+### Maven:
 ```xml
 <dependency>
   <groupId>com.synnapps</groupId>
@@ -40,10 +32,9 @@ Configuration 'compile' is obsolete and has been replaced with 'implementation',
 Usage
 --------
 
-Whether you are using Java Or kotlin as your primary language, the layout implementation does not
-change
-
 ### Include following code in your layout:
+
+The layout implementation is same regardless of whether you are using Java Or kotlin
 
 ```xml
     <com.synnapps.carouselview.CarouselView
@@ -57,10 +48,11 @@ change
         app:strokeColor="#FF777777"
         app:strokeWidth="1dp"/>
 ```
+
+Java
+--------
+
 ### Include following code in your activity:
-
-###Java
-
 ```java
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
@@ -87,26 +79,6 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     };
 
 }
-```
-###Kotlin
-```kotlin
-
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var carouselView: CarouselView
-    private var sampleImages = intArrayOf(R.drawable.image_1, R.drawable.image_2, R.drawable
-    .image_3, R.drawable.image_4, R.drawable.image_5)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        carouselView = (CarouselView) findViewById(R.id.carouselView)
-        carouselView.setPageCount(sampleImages.length)
-
-        carouselView.setImageListener(imageListener)
-}
-    }
 ```
 
 ### If you want to add custom view, implement ```ViewListener```.
@@ -150,6 +122,75 @@ customCarouselView.setImageClickListener(new ImageClickListener() {
                 Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
             }
         });
+```
+
+Kotlin
+--------
+
+### Include following code in your activity:
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var carouselView: CarouselView
+    private var sampleImages = intArrayOf(
+        R.drawable.image_1, R.drawable.image_2, R.drawable
+            .image_3, R.drawable.image_4, R.drawable.image_5
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        carouselView = (CarouselView) findViewById (R.id.carouselView)
+        carouselView.setPageCount(sampleImages.length)
+
+        carouselView.setImageListener(imageListener)
+    }
+}
+
+```
+
+### If you want to add custom view, implement ```ViewListener```.
+```kotlin
+
+class SampleCarouselViewActivity : AppCompatActivity() {
+    internal var customCarouselView: CarouselView
+    internal var NUMBER_OF_PAGES = 5
+    internal var viewListener: ViewListener = object : ViewListener() {
+        fun setViewForPosition(position: Int): View {
+            val customView = getLayoutInflater().inflate(R.layout.view_custom, null)
+            //set view attributes here
+
+            return customView
+        }
+    }
+
+    protected fun onCreate(savedInstanceState: Bundle) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sample_carousel_view)
+        customCarouselView = findViewById(R.id.customCarouselView) as CarouselView
+        customCarouselView.setPageCount(NUMBER_OF_PAGES)
+        // set ViewListener for custom view
+        customCarouselView.setViewListener(viewListener)
+    }
+}
+
+```
+
+### If you'd like to receive touch events for each image
+
+```kotlin
+customCarouselView.setImageClickListener(object : ImageClickListener() {
+            fun onClick(position: Int) {
+                Toast.makeText(
+                    this@SampleCarouselViewActivity,
+                    "Clicked item: " + position,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
 ```
 
 ### If using ProGuard add this line to your proguard-rules.pro:
