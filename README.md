@@ -78,12 +78,14 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     };
 
 }
+
 ```
-**Kotlin **
+**Kotlin**
 ```kotlin
 class MainActivity : AppCompatActivity() {
 
     private lateinit var carouselView: CarouselView
+
     private var sampleImages = intArrayOf(
         R.drawable.image_1, R.drawable.image_2, R.drawable
             .image_3, R.drawable.image_4, R.drawable.image_5
@@ -93,10 +95,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        carouselView = (CarouselView) findViewById (R.id.carouselView)
-        carouselView.setPageCount(sampleImages.length)
-
-        carouselView.setImageListener(imageListener)
+        carouselView = findViewById(R.id.carouselView)
+        carouselView.apply{
+              setPageCount(sampleImages.length)
+              setImageListener(imageListener)
+         }
     }
 }
 
@@ -104,9 +107,8 @@ class MainActivity : AppCompatActivity() {
 
 ### If you want to add custom view, implement ```ViewListener```.
 
-**Java **
+**Java**
 ```java
-
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
     CarouselView customCarouselView;
@@ -134,11 +136,12 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
         }
     };
 }
-```
-**Kotlin **
-```kotlin
 
+```
+**Kotlin**
+```kotlin
 class SampleCarouselViewActivity : AppCompatActivity() {
+
     internal var customCarouselView: CarouselView
     internal var NUMBER_OF_PAGES = 5
     internal var viewListener: ViewListener = object : ViewListener() {
@@ -164,7 +167,7 @@ class SampleCarouselViewActivity : AppCompatActivity() {
 
 ### If you'd like to receive touch events for each image
 
-**Java **
+**Java**
 ```java
 customCarouselView.setImageClickListener(new ImageClickListener() {
             @Override
@@ -172,8 +175,9 @@ customCarouselView.setImageClickListener(new ImageClickListener() {
                 Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
             }
         });
+
 ```
-**Kotlin **
+**Kotlin**
 ```kotlin
 customCarouselView.setImageClickListener(object : ImageClickListener() {
             fun onClick(position: Int) {
