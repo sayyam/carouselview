@@ -34,7 +34,7 @@ Usage
 
 ### Include following code in your layout:
 
-The layout implementation is same regardless of whether you are using Java Or kotlin
+The layout is same regardless of whether you are using Java Or kotlin
 
 ```xml
     <com.synnapps.carouselview.CarouselView
@@ -49,10 +49,9 @@ The layout implementation is same regardless of whether you are using Java Or ko
         app:strokeWidth="1dp"/>
 ```
 
-Java
---------
-
 ### Include following code in your activity:
+
+####Java Implementation
 ```java
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
@@ -81,7 +80,32 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
 }
 ```
 
+####Kotlin Implementation
+```kotlin
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var carouselView: CarouselView
+    private var sampleImages = intArrayOf(
+        R.drawable.image_1, R.drawable.image_2, R.drawable
+            .image_3, R.drawable.image_4, R.drawable.image_5
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        carouselView = (CarouselView) findViewById (R.id.carouselView)
+        carouselView.setPageCount(sampleImages.length)
+
+        carouselView.setImageListener(imageListener)
+    }
+}
+
+```
+
 ### If you want to add custom view, implement ```ViewListener```.
+
+####Java Implementation
 ```java
 
 public class SampleCarouselViewActivity extends AppCompatActivity {
@@ -110,48 +134,10 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             return customView;
         }
     };
-
-```
-
-### If you'd like to receive touch events for each image
-
-```java
-customCarouselView.setImageClickListener(new ImageClickListener() {
-            @Override
-            public void onClick(int position) {
-                Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
-            }
-        });
-```
-
-Kotlin
---------
-
-### Include following code in your activity:
-
-```kotlin
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var carouselView: CarouselView
-    private var sampleImages = intArrayOf(
-        R.drawable.image_1, R.drawable.image_2, R.drawable
-            .image_3, R.drawable.image_4, R.drawable.image_5
-    )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        carouselView = (CarouselView) findViewById (R.id.carouselView)
-        carouselView.setPageCount(sampleImages.length)
-
-        carouselView.setImageListener(imageListener)
-    }
 }
-
 ```
 
-### If you want to add custom view, implement ```ViewListener```.
+####Kotlin Implementation
 ```kotlin
 
 class SampleCarouselViewActivity : AppCompatActivity() {
@@ -180,6 +166,17 @@ class SampleCarouselViewActivity : AppCompatActivity() {
 
 ### If you'd like to receive touch events for each image
 
+####Java Implementation
+```java
+customCarouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
+            }
+        });
+```
+
+####Kotlin Implementation
 ```kotlin
 customCarouselView.setImageClickListener(object : ImageClickListener() {
             fun onClick(position: Int) {
